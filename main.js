@@ -9,7 +9,7 @@ function run() {
 
         shell.env["DEVELOPER_DIR"] = xcode_dir;
         shell.exec("sudo systemsetup -settimezone 'Europe/Stockholm'");
-
+        shell.exec("bundle install");
         environments.forEach(environment => test(environment));
         
     } catch (error) {
@@ -18,8 +18,7 @@ function run() {
 }
 
 function test(environment) {
-    shell.exec("bundle install");
-    fastlaneTestResult = shell.exec("fastlane run_tests env:" + environment);
+    fastlaneTestResult = shell.exec("bundle exec fastlane run_tests env:" + environment);
     if (fastlaneTestResult.code !== 0) {
         setFailed(new Error(`Fastlane Tests Failed`));
     }
