@@ -6,7 +6,7 @@ function run() {
         const environmentsString = core.getInput('environment');
         const environments = environmentsString.split('-');
         const xcode_dir = core.getInput('developer_dir');
-
+        shell.exec("bundle install");
         shell.env["DEVELOPER_DIR"] = xcode_dir;
         shell.exec("sudo systemsetup -settimezone 'Europe/Stockholm'");
         environments.forEach(environment => test(environment));
